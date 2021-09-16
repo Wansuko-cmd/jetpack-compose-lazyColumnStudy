@@ -9,25 +9,17 @@ import androidx.compose.ui.Modifier
 @Composable
 fun List(){
     
-    var list = remember { mutableStateOf((0..3).toMutableList()) }
+    var list by remember { mutableStateOf((0..3).toList()) }
 
     LazyColumn(Modifier.fillMaxSize()){
         item{
-            for(i in list.value){
+            for(i in list){
                 LazyCard(text = i.toString())
             }
         }
         item { 
             AddButton(onClick = {
-//                Log.d("Hello", (list + listOf(list.size)).toString())
-
-                val tempList = list.value
-                tempList.add(list.value.size)
-                Log.d("Hello", "list: ${list.value}")
-                Log.d("Hello", "tempList: $tempList")
-                Log.d("Hello", (list.value == tempList).toString())
-
-                list.value = tempList
+                list = list + listOf(list.size)
             })
         }
     }
